@@ -26,7 +26,7 @@ const get = async (
 
   const users = await UserModel.find({})
 
-  return users.map(u => u.toJSON())
+  return users.map((u) => u.toJSON())
 }
 
 const update = async (userData: DtoUser): Promise<IUser | null> => {

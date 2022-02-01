@@ -21,7 +21,7 @@ User.route('/users')
 
       try {
         await storeUserSchema.validateAsync(args)
-        const us = new UserService(args)
+        const us = new UserService(args as DtoUser)
         const result = await us.process({ type: 'store' })
         response({ error: false, message: result, res, status: 201 })
       } catch (e) {

@@ -4,3 +4,4 @@ const idSchema = Joi.string().length(24).required()
 
 export { idSchema }
 export * from './user'
+export * from './patient'
