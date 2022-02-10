@@ -1,25 +1,41 @@
 import httpErrors from 'http-errors'
 
-import { createPatient } from 'database'
+import { createPatient, getPatient } from 'database'
 import { EFU, MFU, GE, errorHandling } from './utils'
 
 type Process = {
-  type: 'create'
+  type: 'getOne' | 'create'
 }
 
-class PatientService {
-  private _args: DtoPatient | null
+type PatientServiceRequest = Partial<DtoPatient> | null
+type PatientServiceResponse = string | IPatient[] | IPatient
 
-  constructor(args: DtoPatient | null = null) {
+class PatientService {
+  private _args: PatientServiceRequest
+
+  constructor(args: PatientServiceRequest = null) {
     this._args = args
   }
 
-  public process({ type }: Process): Promise<string | IPatient[] | IPatient> {
+  public process({ type }: Process): Promise<PatientServiceResponse> {
     switch (type) {
+      case 'getOne':
+        return this._getOne()
       case 'create':
         return this._create()
       default:
         throw new httpErrors.InternalServerError(GE.INTERNAL_SERVER_ERROR)
+    }
+  }
+
+  private async _getOne(): Promise<IPatient> {
+    try {
+      const { id } = this._args as DtoPatient
+      const result = await getPatient(id)
+
+      return result
+    } catch (e) {
+      return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
     }
   }
 
