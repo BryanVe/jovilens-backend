@@ -4,34 +4,33 @@ import { createPatient, getPatient } from 'database'
 import { GE, errorHandling } from './utils'
 
 type Process = {
-  type: 'getOne' | 'create'
+  type: 'getPatient' | 'createPatient'
 }
 
-type PatientServiceRequest = Partial<DtoPatient> | null
+type PatientServiceRequest = string | DtoPatient
 type PatientServiceResponse = IPatient
 
-class PatientService {
+export class PatientService {
   private _args: PatientServiceRequest
 
-  constructor(args: PatientServiceRequest = null) {
+  constructor(args: PatientServiceRequest) {
     this._args = args
   }
 
   public process({ type }: Process): Promise<PatientServiceResponse> {
     switch (type) {
-      case 'getOne':
-        return this._getOne()
-      case 'create':
-        return this._create()
+      case 'getPatient':
+        return this._getPatient()
+      case 'createPatient':
+        return this._createPatient()
       default:
         throw new httpErrors.InternalServerError(GE.INTERNAL_SERVER_ERROR)
     }
   }
 
-  private async _getOne(): Promise<IPatient> {
+  private async _getPatient(): Promise<IPatient> {
     try {
-      const { id } = this._args as DtoPatient
-      const result = await getPatient(id)
+      const result = await getPatient(this._args as string)
 
       return result
     } catch (e) {
@@ -39,7 +38,7 @@ class PatientService {
     }
   }
 
-  private async _create(): Promise<IPatient> {
+  private async _createPatient(): Promise<IPatient> {
     try {
       const result = await createPatient(this._args as DtoPatient)
 
@@ -49,5 +48,3 @@ class PatientService {
     }
   }
 }
-
-export { PatientService }

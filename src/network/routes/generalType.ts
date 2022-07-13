@@ -14,13 +14,11 @@ GeneralType.route('/generalType').post(
     res: CustomResponse,
     next: NextFunction
   ): Promise<void> => {
-    const {
-      body: { args },
-    } = req
+    const { body } = req
 
     try {
-      await createGeneralTypeSchema.validateAsync(args)
-      const gts = new GeneralTypeService(args as DtoGeneralType)
+      await createGeneralTypeSchema.validateAsync(body)
+      const gts = new GeneralTypeService(body as DtoGeneralType)
       const result = await gts.process({ type: 'create' })
 
       response({ error: false, message: result, res, status: 201 })

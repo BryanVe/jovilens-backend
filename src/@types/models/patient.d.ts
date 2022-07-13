@@ -4,8 +4,8 @@ interface IPatient {
   phone: string
   age: number
   address: string
-  occupation: string
-  gender: string
+  occupation?: string
+  gender?: string
   civilStatus?: string
   deleted: boolean
   createdAt: Date

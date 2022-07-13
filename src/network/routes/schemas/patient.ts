@@ -6,8 +6,8 @@ const createPatientSchema = Joi.object().keys({
   phone: Joi.string().required(),
   age: Joi.number().required(),
   address: Joi.string().required(),
-  occupation: Joi.string().required(),
-  gender: Joi.string().required(),
+  occupation: Joi.string(),
+  gender: Joi.string(),
   civilStatus: Joi.string(),
 })
 

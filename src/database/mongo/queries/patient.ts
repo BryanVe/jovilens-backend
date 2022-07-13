@@ -9,8 +9,8 @@ export const getPatient: GetPatient = async (id) => {
   return patient
 }
 
-export const createPatient: CreatePatient = async (patientData) => {
-  const patient = new PatientModel(patientData)
+export const createPatient: CreatePatient = async (data) => {
+  const patient = new PatientModel(data)
   await patient.save()
 
   return patient.toJSON()

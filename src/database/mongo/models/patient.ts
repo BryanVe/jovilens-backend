@@ -1,5 +1,7 @@
 import { model, Schema } from 'mongoose'
 
+const collectionName = 'patients'
+
 const Patient = new Schema<IPatient>(
   {
     names: {
@@ -24,11 +26,9 @@ const Patient = new Schema<IPatient>(
     },
     occupation: {
       type: String,
-      required: true,
     },
     gender: {
       type: String,
-      required: true,
     },
     civilStatus: {
       type: String,
@@ -40,12 +40,12 @@ const Patient = new Schema<IPatient>(
     },
   },
   {
+    collection: collectionName,
     timestamps: true,
     versionKey: false,
     toJSON: {
       transform(_, ret) {
         delete ret._id
-        delete ret.__v
         delete ret.deleted
       },
       virtuals: true,
@@ -53,6 +53,6 @@ const Patient = new Schema<IPatient>(
   }
 )
 
-const PatientModel = model<IPatient>('patient', Patient)
+const PatientModel = model<IPatient>(collectionName, Patient)
 
 export { PatientModel }
