@@ -4,10 +4,10 @@ import { createGeneralType, getGeneralType } from 'database'
 import { GE, errorHandling } from './utils'
 
 type Process = {
-  type: 'getOne' | 'create'
+  type: 'getGeneralType' | 'createGeneralType'
 }
 
-type GeneralTypeServiceRequest = Partial<DtoGeneralType>
+type GeneralTypeServiceRequest = string | DtoGeneralType
 type GeneralTypeServiceResponse = IGeneralType
 
 export class GeneralTypeService {
@@ -19,19 +19,18 @@ export class GeneralTypeService {
 
   public process({ type }: Process): Promise<GeneralTypeServiceResponse> {
     switch (type) {
-      case 'getOne':
-        return this._getOne()
-      case 'create':
-        return this._create()
+      case 'getGeneralType':
+        return this._getGeneralType()
+      case 'createGeneralType':
+        return this._createGeneralType()
       default:
         throw new httpErrors.InternalServerError(GE.INTERNAL_SERVER_ERROR)
     }
   }
 
-  private async _getOne(): Promise<IGeneralType> {
+  private async _getGeneralType(): Promise<IGeneralType> {
     try {
-      const { id } = this._args as DtoGeneralType
-      const result = await getGeneralType(id)
+      const result = await getGeneralType(this._args as string)
 
       return result
     } catch (e) {
@@ -39,7 +38,7 @@ export class GeneralTypeService {
     }
   }
 
-  private async _create(): Promise<IGeneralType> {
+  private async _createGeneralType(): Promise<IGeneralType> {
     try {
       const result = await createGeneralType(this._args as DtoGeneralType)
 

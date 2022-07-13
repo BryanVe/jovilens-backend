@@ -1,4 +1,4 @@
-import { Router, NextFunction } from 'express'
+import { Router, NextFunction, Response } from 'express'
 import httpErrors from 'http-errors'
 import { ValidationError } from 'joi'
 
@@ -11,15 +11,15 @@ export const GeneralType = Router()
 GeneralType.route('/generalType').post(
   async (
     req: CustomRequest,
-    res: CustomResponse,
+    res: Response,
     next: NextFunction
   ): Promise<void> => {
-    const { body } = req
-
     try {
+      const { body } = req
       await createGeneralTypeSchema.validateAsync(body)
+
       const gts = new GeneralTypeService(body as DtoGeneralType)
-      const result = await gts.process({ type: 'create' })
+      const result = await gts.process({ type: 'createGeneralType' })
 
       response({ error: false, message: result, res, status: 201 })
     } catch (e) {
@@ -34,17 +34,15 @@ GeneralType.route('/generalType').post(
 GeneralType.route('/generalType/:id').get(
   async (
     req: CustomRequest,
-    res: CustomResponse,
+    res: Response,
     next: NextFunction
   ): Promise<void> => {
-    const {
-      params: { id },
-    } = req
-
     try {
+      const { id } = req.params
       await idSchema.validateAsync(id)
-      const gts = new GeneralTypeService({ id })
-      const result = await gts.process({ type: 'getOne' })
+
+      const gts = new GeneralTypeService(id)
+      const result = await gts.process({ type: 'getGeneralType' })
 
       response({ error: false, message: result, res, status: 200 })
     } catch (e) {

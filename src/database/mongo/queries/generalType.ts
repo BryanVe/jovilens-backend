@@ -9,8 +9,8 @@ export const getGeneralType: GetGeneralType = async (id) => {
   return patient
 }
 
-export const createGeneralType: CreateGeneralType = async (patientData) => {
-  const patient = new GeneralTypeModel(patientData)
+export const createGeneralType: CreateGeneralType = async (data) => {
+  const patient = new GeneralTypeModel(data)
   await patient.save()
 
   return patient.toJSON()
