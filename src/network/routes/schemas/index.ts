@@ -1,7 +1,4 @@
-import Joi from 'joi'
-
-const idSchema = Joi.string().length(24).required()
-
-export { idSchema }
+export * from './general'
 export * from './patient'
 export * from './generalType'
+export * from './clinicHistory'
