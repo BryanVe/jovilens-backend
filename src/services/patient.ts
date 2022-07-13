@@ -8,7 +8,7 @@ type Process = {
 }
 
 type PatientServiceRequest = Partial<DtoPatient> | null
-type PatientServiceResponse = string | IPatient[] | IPatient
+type PatientServiceResponse = IPatient
 
 class PatientService {
   private _args: PatientServiceRequest

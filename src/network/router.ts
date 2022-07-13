@@ -3,10 +3,11 @@ import swaggerUi from 'swagger-ui-express'
 import httpErrors from 'http-errors'
 
 import { response } from './response'
-import { Home, User, Patient } from './routes'
+import * as routes from './routes'
 import { docs } from 'utils'
 
-const routers = [User, Patient]
+const { Home, ...rest } = routes
+const routers = Object.values(rest)
 
 const applyRoutes = (app: Application): void => {
   app.use('/', Home)
