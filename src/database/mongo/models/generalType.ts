@@ -5,7 +5,7 @@ const collectionName = 'generalTypes'
 const GeneralType = new Schema<IGeneralType>(
   {
     groupId: {
-      type: String,
+      type: Schema.Types.ObjectId,
     },
     label: {
       type: String,
