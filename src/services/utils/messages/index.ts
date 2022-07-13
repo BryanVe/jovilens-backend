@@ -3,4 +3,3 @@ enum GenericErrors {
 }
 
 export { GenericErrors as GE }
-export * from './user'

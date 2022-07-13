@@ -1,7 +1,7 @@
 import httpErrors from 'http-errors'
 
 import { createPatient, getPatient } from 'database'
-import { EFU, MFU, GE, errorHandling } from './utils'
+import { GE, errorHandling } from './utils'
 
 type Process = {
   type: 'getOne' | 'create'
