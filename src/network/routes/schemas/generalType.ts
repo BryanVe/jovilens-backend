@@ -1,6 +1,7 @@
 import Joi from 'joi'
+import { idSchema } from '.'
 
-export const createGeneralTypeSchema = Joi.object().keys({
-  groupId: Joi.string().length(24),
+export const createGeneralTypeSchema = Joi.object<DtoGeneralType>().keys({
+  groupId: idSchema,
   label: Joi.string().required(),
 })

@@ -1,4 +1,4 @@
-interface IPatient {
+interface IPatient extends GeneralModel {
   names: string
   lastNames: string
   phone: string
@@ -7,7 +7,4 @@ interface IPatient {
   occupation?: string
   gender?: string
   civilStatus?: string
-  deleted: boolean
-  createdAt: Date
-  updatedAt: Date
 }

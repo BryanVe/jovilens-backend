@@ -3,14 +3,11 @@ interface ISymptom {
   answer: string
 }
 
-interface IClinicHistory {
+interface IClinicHistory extends GeneralModel {
   patientId: ObjectId
   signs?: string[]
   symptoms?: Symptom[]
   diagnosis?: string
   treatment?: string
   nextConsultation?: Date
-  deleted: boolean
-  createdAt: Date
-  updatedAt: Date
 }

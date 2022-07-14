@@ -1,7 +1,4 @@
-interface IGeneralType {
-  groupId?: string
+interface IGeneralType extends GeneralModel {
+  groupId?: ObjectId
   label: string
-  deleted: boolean
-  createdAt: Date
-  updatedAt: Date
 }

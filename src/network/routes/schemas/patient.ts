@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const createPatientSchema = Joi.object().keys({
+const createPatientSchema = Joi.object<DtoPatient>().keys({
   names: Joi.string().required(),
   lastNames: Joi.string().required(),
   phone: Joi.string().required(),
