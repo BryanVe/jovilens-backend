@@ -1,2 +1,2 @@
-type GetPatient = (id: string) => Promise<IPatient>
-type CreatePatient = (data: DtoPatient) => Promise<IPatient>
+type GetPatient = (id: string) => Promise<DtoGetPatient>
+type CreatePatient = (data: DtoCreatePatient) => Promise<DtoCreatePatient>

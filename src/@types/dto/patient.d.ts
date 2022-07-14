@@ -8,3 +8,14 @@ interface DtoPatient {
   gender?: string
   civilStatus?: string
 }
+
+type DtoCreatePatient = DtoPatient
+
+interface DtoGetPatientClinicHistory {
+  id: string
+  createdAt: Date
+}
+
+interface DtoGetPatient extends DtoPatient {
+  clinicHistories: DtoGetPatientClinicHistory[]
+}

@@ -18,7 +18,7 @@ Patient.route('/patient').post(
       const { body } = req
       await createPatientSchema.validateAsync(body)
 
-      const ps = new PatientService(body as DtoPatient)
+      const ps = new PatientService(body as DtoCreatePatient)
       const result = await ps.process({ type: 'createPatient' })
 
       response({ error: false, message: result, res, status: 201 })

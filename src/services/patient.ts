@@ -7,8 +7,8 @@ type Process = {
   type: 'getPatient' | 'createPatient'
 }
 
-type PatientServiceRequest = string | DtoPatient
-type PatientServiceResponse = IPatient
+type PatientServiceRequest = string | DtoCreatePatient
+type PatientServiceResponse = DtoCreatePatient | DtoGetPatient
 
 export class PatientService {
   private _args: PatientServiceRequest
@@ -28,7 +28,7 @@ export class PatientService {
     }
   }
 
-  private async _getPatient(): Promise<IPatient> {
+  private async _getPatient(): Promise<DtoGetPatient> {
     try {
       const result = await getPatient(this._args as string)
 
@@ -38,9 +38,9 @@ export class PatientService {
     }
   }
 
-  private async _createPatient(): Promise<IPatient> {
+  private async _createPatient(): Promise<DtoCreatePatient> {
     try {
-      const result = await createPatient(this._args as DtoPatient)
+      const result = await createPatient(this._args as DtoCreatePatient)
 
       return result
     } catch (e) {
