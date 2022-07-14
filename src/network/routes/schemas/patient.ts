@@ -1,6 +1,6 @@
 import Joi from 'joi'
 
-const createPatientSchema = Joi.object<DtoPatient>().keys({
+export const createPatientSchema = Joi.object<DtoPatient>().keys({
   names: Joi.string().required(),
   lastNames: Joi.string().required(),
   phone: Joi.string().required(),
@@ -10,5 +10,3 @@ const createPatientSchema = Joi.object<DtoPatient>().keys({
   gender: Joi.string(),
   civilStatus: Joi.string(),
 })
-
-export { createPatientSchema }

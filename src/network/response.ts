@@ -5,8 +5,11 @@ interface ResponseProps {
   status: number
 }
 
-const response = ({ error, message, res, status }: ResponseProps): void => {
+export const response = ({
+  error,
+  message,
+  res,
+  status,
+}: ResponseProps): void => {
   res.status(status).send({ error, message })
 }
-
-export { response }

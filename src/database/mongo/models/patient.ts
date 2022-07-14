@@ -53,6 +53,4 @@ const Patient = new Schema<IPatient>(
   }
 )
 
-const PatientModel = model<IPatient>(collectionName, Patient)
-
-export { PatientModel }
+export const PatientModel = model<IPatient>(collectionName, Patient)

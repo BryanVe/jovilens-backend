@@ -1,7 +1,7 @@
 import Joi from 'joi'
 import { idSchema } from '.'
 
-const symptomSchema = Joi.object<DtoSymptom>().keys({
+export const symptomSchema = Joi.object<DtoSymptom>().keys({
   id: idSchema.required(),
   answer: Joi.string().required(),
 })
