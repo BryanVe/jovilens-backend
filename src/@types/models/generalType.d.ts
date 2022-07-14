@@ -1,4 +1,5 @@
 interface IGeneralType extends GeneralModel {
-  groupId?: ObjectId
+  groupId?: string
   label: string
+  value?: string
 }

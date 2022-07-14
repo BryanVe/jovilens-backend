@@ -1,12 +1,12 @@
 interface ISymptom {
-  id: ObjectId
+  id: string
   answer: string
 }
 
 interface IClinicHistory extends GeneralModel {
-  patientId: ObjectId
+  patientId: string
   signs?: string[]
-  symptoms?: Symptom[]
+  symptoms?: ISymptom[]
   diagnosis?: string
   treatment?: string
   nextConsultation?: Date

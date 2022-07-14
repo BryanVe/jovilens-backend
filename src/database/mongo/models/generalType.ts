@@ -5,11 +5,15 @@ const collectionName = 'generalTypes'
 const GeneralType = new Schema<IGeneralType>(
   {
     groupId: {
-      type: Schema.Types.ObjectId,
+      type: String,
     },
     label: {
       type: String,
       required: true,
+      unique: true,
+    },
+    value: {
+      type: String,
       unique: true,
     },
     deleted: {

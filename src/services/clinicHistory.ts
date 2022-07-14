@@ -7,8 +7,10 @@ type Process = {
   type: 'getClinicHistory' | 'createClinicHistory'
 }
 
-type ClinicHistoryServiceRequest = string | DtoClinicHistory
-type ClinicHistoryServiceResponse = IClinicHistory
+type ClinicHistoryServiceRequest = string | DtoCreateClinicHistoryI
+type ClinicHistoryServiceResponse =
+  | DtoCreateClinicHistoryO
+  | DtoGetClinicHistoryO
 
 export class ClinicHistoryService {
   private _args: ClinicHistoryServiceRequest
@@ -28,7 +30,7 @@ export class ClinicHistoryService {
     }
   }
 
-  private async _getClinicHistory(): Promise<IClinicHistory> {
+  private async _getClinicHistory(): Promise<DtoGetClinicHistoryO> {
     try {
       const result = await getClinicHistory(this._args as string)
 
@@ -38,7 +40,7 @@ export class ClinicHistoryService {
     }
   }
 
-  private async _createClinicHistory(): Promise<IClinicHistory> {
+  private async _createClinicHistory(): Promise<DtoCreateClinicHistoryO> {
     try {
       const result = await createClinicHistory(this._args as DtoClinicHistory)
 

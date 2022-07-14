@@ -4,7 +4,7 @@ const collectionName = 'clinicHistories'
 
 const Symptom = new Schema<ISymptom>(
   {
-    id: Schema.Types.ObjectId,
+    id: String,
     answer: String,
   },
   {
@@ -15,11 +15,11 @@ const Symptom = new Schema<ISymptom>(
 const ClinicHistory = new Schema<IClinicHistory>(
   {
     patientId: {
-      type: Schema.Types.ObjectId,
+      type: String,
       required: true,
     },
     signs: {
-      type: [Schema.Types.ObjectId],
+      type: [String],
       default: undefined,
     },
     symptoms: {
