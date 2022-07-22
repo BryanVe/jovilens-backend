@@ -1,14 +1,17 @@
 import httpErrors from 'http-errors'
 
-import { createPatient, getPatient } from 'database'
+import { createPatient, getPatient, getPatients } from 'database'
 import { GE, errorHandling } from './utils'
 
 type Process = {
-  type: 'getPatient' | 'createPatient'
+  type: 'getPatient' | 'getPatients' | 'createPatient'
 }
 
-type PatientServiceRequest = string | DtoCreatePatient
-type PatientServiceResponse = DtoCreatePatient | DtoGetPatient
+type PatientServiceRequest = string | DtoCreatePatient | DtoGetPatientsRequest
+type PatientServiceResponse =
+  | DtoCreatePatient
+  | DtoGetPatient
+  | DtoGetPatientsResponse
 
 export class PatientService {
   private _args: PatientServiceRequest
@@ -23,6 +26,8 @@ export class PatientService {
         return this._getPatient()
       case 'createPatient':
         return this._createPatient()
+      case 'getPatients':
+        return this._getPatients()
       default:
         throw new httpErrors.InternalServerError(GE.INTERNAL_SERVER_ERROR)
     }
@@ -46,5 +51,13 @@ export class PatientService {
     } catch (e) {
       return errorHandling(e, GE.INTERNAL_SERVER_ERROR)
     }
+  }
+
+  private async _getPatients(): Promise<any> {
+    try {
+      const result = await getPatients(this._args as DtoGetPatientsRequest)
+
+      return result
+    } catch (error) {}
   }
 }

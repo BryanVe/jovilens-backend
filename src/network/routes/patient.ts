@@ -4,7 +4,7 @@ import { ValidationError } from 'joi'
 
 import { response } from 'network/response'
 import { PatientService } from 'services'
-import { createPatientSchema, idSchema } from './schemas'
+import { createPatientSchema, getPatientsSchema, idSchema } from './schemas'
 
 export const Patient = Router()
 
@@ -22,6 +22,29 @@ Patient.route('/patient').post(
       const result = await ps.process({ type: 'createPatient' })
 
       response({ error: false, message: result, res, status: 201 })
+    } catch (e) {
+      if (e instanceof ValidationError)
+        return next(new httpErrors.UnprocessableEntity(e.message))
+
+      next(e)
+    }
+  }
+)
+
+Patient.route('/patients').post(
+  async (
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ): Promise<void> => {
+    try {
+      const { body } = req
+      await getPatientsSchema.validateAsync(body)
+
+      const ps = new PatientService(body as DtoGetPatientsRequest)
+      const result = await ps.process({ type: 'getPatients' })
+
+      response({ error: false, message: result, res, status: 200 })
     } catch (e) {
       if (e instanceof ValidationError)
         return next(new httpErrors.UnprocessableEntity(e.message))
